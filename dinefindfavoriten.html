@@ -1,0 +1,99 @@
+{% load static %}
+<html>
+<head>
+    <title>DineFind</title>
+	<link rel="stylesheet" type="text/css" href="/static/neues_style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{% static 'Logof.png' %}">
+</head>
+<body>
+        <div id="C1">
+            <img src="/static/Logo.jpg" alt="Logo" class="Logo">
+            <h1>DineFind</h1>
+            <div id="Icondiv">
+                <form class="form" action="http://[2001:7c0:2320:2:f816:3eff:fee7:d82]:8000/dinefind/home"><button class="icons"><i class="material-icons">home</i></button></form>
+            </div>         
+        </div>
+    <div class="favseite">
+        <h2 class="h2fav">Meine Favoriten</h2>
+        <label id="LabelfilterKategorie" for="filterKategorie">Kategorie filtern:</label>
+        <select id="filterKategorie">
+            <option value="alle">Alle</option>
+            <option value="italienisch">Italienisch</option>
+            <option value="asiatisch">Asiatisch</option>
+            <option value="burger">Burger</option>
+            <option value="süßspeisen">Süßspeisen</option>
+            <option value="modern">Modern</option>
+            <option value="vegan">Vegan</option>
+            <option value="regional">Regional</option>
+            <option value="japanisch">Japanisch</option>
+            <option value="fisch">Fisch</option>
+            <option value="griechisch">Griechisch</option>
+        </select>
+
+        <div class="favoriten-container">
+            {% for favorit in favoriten %}
+            <div class="favorit" data-kategorie="{{ favorit.kategorie|default:'alle' }}">
+                {% if favorit.bild.0 %}
+                {% for bild in favorit.bild %}
+                <img src="{{ bild }}" alt="Bild von {{ favorit.name }}" />
+                {% endfor %}
+                {% else %}
+                <img src="{{ favorit.bild }}" alt="Bild von {{ favorit.name }}" />
+                {% endif %}
+                <h3>{{ favorit.name }}</h3>
+                <p><strong>Adresse:</strong> {{ favorit.adresse }}</p>
+                <p><strong>Preis:</strong> {{ favorit.preis }}</p>
+                <p><strong>Beschreibung:</strong> {{ favorit.beschreibung }}</p>
+                <p><strong>Gerichte:</strong> {{ favorit.gerichte|join:", " }}</p>
+                <button class="email-button" onclick="sendeEmail('{{ favorit.mail }}', '{{ favorit.name }}')">
+                    <i class="material-icons">email</i> Nachricht senden
+                </button>
+            </div>
+            {% empty %}
+            <p>Du hast noch keine Favoriten gespeichert.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <footer>
+        <p><a href="#C1">Zurück nach oben</a></p>
+        <i class="material-icons">copyright</i>Karkoschka; Renckly; Schüßler
+    </footer>
+
+    <script>
+        document.getElementById("filterKategorie").addEventListener("change", function () {
+            const kategorie = this.value;
+            const favoriten = document.querySelectorAll(".favorit");
+
+            favoriten.forEach(fav => {
+                const kat = fav.dataset.kategorie;
+                if (kategorie === "alle") {
+                    fav.style.display = "block";
+                }
+                else if (kat === kategorie) {
+                    fav.style.display = "block";
+                }
+                else{
+                    fav.style.display = "none";
+                }
+            });
+        });
+
+        function sendeEmail(email, name) {
+        const nachricht = prompt(`Geben Sie Ihre Nachricht an "${name}" ein:`);
+        if (email && nachricht) {
+            const subject = encodeURIComponent("Anfrage über DineFind");
+            const body = encodeURIComponent(nachricht);
+            window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+        } else {
+            alert("E-Mail-Versand abgebrochen.");
+        }
+    }
+    </script>
+</body>
+</html>
