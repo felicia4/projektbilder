@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DineFind</title>
+	<link rel="stylesheet" type="text/css" href=".\neues_style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href=".\Logo.jpg">
+</head>
+<body>
+    <div id="C1">
+        <img src=".\Logo.jpg" alt="Logo" class="Logo">
+        <h1>DineFind</h1>
+        <div id="Icondiv">
+            <form class="form" action="https://google.com" target="_blank"><button class="icons"><i class="material-icons">favorite</i></button></form>
+            <form class="form" action="https://google.com"><button class="icons"><i class="material-icons">account_circle</i></button></form>
+            <form class="form" action="https://google.com"><button class="icons"><i class="material-icons">rate_review</i></button></form>
+            <form class="form" action="https://google.com"><button class="icons"><i class="material-icons">menu</i></button></form>
+        </div>
+    </div>
+   
+    <div class="review">
+        <div class="form-container1">
+            <h1>Bewerte deinen Besuch im Restaurant</h1>
+            <div>
+            <form id="reviewform">
+                <label for="rating">Bewertung:</label>
+                <select id="rating" name="rating" required>
+                    <option value="">Bitte wählen</option>
+                    <option value="5">5 Sterne</option>
+                    <option value="4">4 Sterne</option>
+                    <option value="3">3 Sterne</option>
+                    <option value="2">2 Sterne</option>
+                    <option value="1">1 Stern</option>
+                </select>
+                <label for="review">Deine Bewertung:</label>
+                <textarea id="review" name="review" rows="7" placeholder="Schreibe hier deine Bewertung"></textarea>
+                <button type="submit">Absenden</button>
+            </form>
+      </div>  
+	</div>
+</div>
+    <footer>
+        <p><a href="#C1">Zurück nach oben</a></p>
+        <i class="material-icons">copyright</i>Karkoschka; Renckly; Schüßler
+    </footer>
+</body>
+</html>
